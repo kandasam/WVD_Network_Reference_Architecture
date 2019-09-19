@@ -6,7 +6,9 @@ In addition to full desktops, customers can publish individual applications and 
 
 ![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure1.png)
 
-Figure 1: Windows Virtual Desktop Components
+<p align="center">
+  Figure 1: Windows Virtual Desktop Components
+</p>
 
   
 ## WVD Deployment Considerations
@@ -52,9 +54,13 @@ With any architecture there are advantages and disadvantages to the approach tak
 ### High-Security WVD Deployment
 There are some organizations who have very strict security requirements and demand that all front-end access be private, like the on-prem user consumption previously detailed, as well as tightly lock down the back-end resources for least privilege access.  In these scenarios all outbound communication must be tightly controlled via ACLs and any and all communication logged for visibility.  These scenarios require all WVD dependencies to be clearly defined and whitelisted.  A topology supporting this architecture is shown below.
 
-![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure3.PNG)
+<p align="center">
+  <img width="634" height="506" src="https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure3.PNG">
+</p>
 
-Figure 4: High-Security WVD Topology
+<p align="center">
+  Figure 3: High-Security WVD Topology
+</p>
 
 This architecture builds upon the on-prem user consumption architecture as the front-end is fully privatized while also adding backend security to fully lock down and inspect all traffic destined to WVD dependencies.  These dependencies are locked down via defined UDRs and Routes, service endpoints, as well as Azure Firewall (or NVA) and NSG logs for inspection.  It is important to note that these dependencies only represent the WVD solution.  Depending upon the applications being served to users through these desktops, additional dependencies may need to be accounted for.
 
@@ -68,7 +74,9 @@ This architecture builds upon the on-prem user consumption architecture as the f
 
 ![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure4.PNG)
 
-Figure 5: Azure Firewall Rules
+<p align="center">
+  Figure 5: Azure Firewall Rules
+</p>
 
 **Routing**
 As we have all of the appropriate FQDNs defined in the upstream firewall (or with service endpoints or private link) we can apply a default route to the desktop subnet and route all traffic to the Azure Firewall.  This will ensure that no traffic is destined outbound and we are able to gain visibility into all traffic leaving the environment.
