@@ -12,7 +12,9 @@ There are a few deployment scenarios which can impact some of the architecture o
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| Use Azure AD DS. | Great for test or isolated environments that do not need connectivity to on-premises resources. Azure AD will be your leading source for identities. | AD DS will always be running, resulting in a fixed charge per month.| Spin up a DC in your Azure subscription. | Can sync with on-premises DCs if VPN or ExpressRoute is configured. All familiar AD Group Policies can be used. Virtual machines can be paused or stopped when needed to reduce costs. | Adds additional management of a VM and Active Directory in Azure. | Use VPN or ExpressRoute and make sure you’re on-premises DCs can be found in Azure. |	No AD DS or Domain Controller required in Azure. | Latency could be increased adding delays during user authentication to VMs. This assumes you have an on-premises environment, not suitable for cloud only tests. |
+| Use Azure AD DS. | Great for test or isolated environments that do not need connectivity to on-premises resources. Azure AD will be your leading source for identities. | AD DS will always be running, resulting in a fixed charge per month.| 
+| Spin up a DC in your Azure subscription. | Can sync with on-premises DCs if VPN or ExpressRoute is configured. All familiar AD Group Policies can be used. Virtual machines can be paused or stopped when needed to reduce costs. | Adds additional management of a VM and Active Directory in Azure. | 
+| Use VPN or ExpressRoute and make sure you’re on-premises DCs can be found in Azure. |	No AD DS or Domain Controller required in Azure. | Latency could be increased adding delays during user authentication to VMs. This assumes you have an on-premises environment, not suitable for cloud only tests. |
 
 The following architectures leverage the second option in which a domain controller is instantiated in Azure and Azure AD Connect was installed to sync identities to Azure AD.
 
