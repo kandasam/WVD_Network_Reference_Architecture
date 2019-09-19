@@ -107,7 +107,10 @@ The methods above have created a private path into the WVD environment, however 
 A challenge today is that Azure Active Directory is not accessible via a private IP address therefore, we are not able to limit these requests to private IP addresses.  We either must whitelist the public IP address for our enterprise organization or, if ExpressRoute is in use, we can enable Microsoft peering and receive the public IP addresses for Azure Active Directory over this private path.  For Express Route Microsoft peering, we can then enable our NAT IP on the peering as the Trusted IP to allow authentication requests.
 Using Conditional Access, we are able to define these Trusted IPs which represent an enterprises local network and limit access to our WVD environment to only requests from these IPs.  https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings#trusted-ips
 
-![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure5.PNG) 
+
+<p align="center">
+  <img width="290" height="276" src="https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure5.PNG">
+</p>
 
 Once we limit access to the WVD environment to only the Trusted locations defined for the Enterprise network, the WVD environment will not be accessible by users coming from the Internet.  Desktops and Applications will only be accessible by those users on the corporate network with approved Active Directory permissions.
 
