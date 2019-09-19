@@ -22,6 +22,8 @@ This assumes you have an on-premises environment, not suitable for cloud only te
 
 The following architectures leverage the second option in which a domain controller is instantiated in Azure and Azure AD Connect was installed to sync identities to Azure AD.
 
+***The applications being presented (independently or through desktops) via WVD may also impact the network requirements – specifically around network routing and ACLs.  These requirements may have additional impacts on traffic flow and visibility.***
+
 ## WVD Network Architecture Options
 While the WVD solution allows for multiple desktop and application offerings, this document will focus solely on the network architecture and the topologies for how this solution can be designed.  This document will outline two different architectures: the first will describe a standard deployment in which WVD is deployed and users access desktops directly over the Internet, while the second will describe a high security deployment where access to desktops is privatized and all traffic is whitelisted and locked down for security auditing.
 
@@ -85,12 +87,16 @@ There are 2 main FQDNs for the front-end access to WVD.  These services can be d
 
 When private link is deployed for the broker service, the URL https://rdbroker.wvd.microsoft.com is created and an A record within Azure DNS will be created to redirect desktops automatically to this private IP.
 
+***When using Azure Firewall rule processing order is important.  Application rulesets are applied last so if Network rulesets are defined that match specified traffic, a corresponding application ruleset will never be hit.  This is important to remember in use cases where desktops require Internet access as an Any 443 rule would supersede the FQDNs defined above.  If Internet access is required for desktops, consider using a proxy service to prevent Any rules in the Azure Network rulesets.***
+
 **Controlling Accessibility**
 The methods above have created a private path into the WVD environment, however accessibility from the Internet is still available.  The front-end access for WVD (i.e. the broker and web services) are a shared platform with a shared DNS name across customers.  Access is controlled via Active Directory as we have previously explained however we are not able to block Internet access to this front-end as this would impact all customers using the service.  In order for customers to ensure that their environment is only accessible over private connectivity, we must leverage Azure Active Directory Conditional Access to limit the source of our requests to on-prem IP Addresses. https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/
 
 A challenge today is that Azure Active Directory is not accessible via a private IP address therefore, we are not able to limit these requests to private IP addresses.  We either must whitelist the public IP address for our enterprise organization or, if ExpressRoute is in use, we can enable Microsoft peering and receive the public IP addresses for Azure Active Directory over this private path.  For Express Route Microsoft peering, we can then enable our NAT IP on the peering as the Trusted IP to allow authentication requests.
 Using Conditional Access, we are able to define these Trusted IPs which represent an enterprises local network and limit access to our WVD environment to only requests from these IPs.  https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings#trusted-ips
- 
+
+![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure5.PNG) 
+
 Once we limit access to the WVD environment to only the Trusted locations defined for the Enterprise network, the WVD environment will not be accessible by users coming from the Internet.  Desktops and Applications will only be accessible by those users on the corporate network with approved Active Directory permissions.
 
 ### Advantages & Disadvantages  
