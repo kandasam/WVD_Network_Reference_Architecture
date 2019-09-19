@@ -4,10 +4,9 @@
 Azure Windows Virtual Desktop (WVD) is a desktop and application virtualization service that runs in the cloud.  Customers are able to run a full desktop virtualization environment within their Azure subscription without the need to run any additional gateway servers as these are provided as a PaaS resource.  A customer can provision and publish as many host pools as is required for individual workloads, bring custom images for production hosts, and even provide persistent desktops for individual users.
 In addition to full desktops, customers can publish individual applications and assign specific users to custom app groups to reduce the total number of images.  WVD removes the need for customers to manage Remote Desktop roles and instead use built-in delegated access to assign roles and collect diagnostics.  As a managed service, WVD allows users to securely connect through reverse connections eliminating the need for inbound ports on the hosts or applications.
 
-<p align="center">
-  <img width="1457" height="826" src="https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure1.png">
-  Figure 1: Windows Virtual Desktop Components
-</p>
+![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure1.PNG)
+Figure 1: Windows Virtual Desktop Components
+
   
 ## WVD Deployment Considerations
 There are a few deployment scenarios which can impact some of the architecture options of the network connectivity.  The most impactful consideration is how Active Directory is integrated into the environment.  An Active Directory instance is required to which your backend desktops are able to join.  The options for this are as follows:
