@@ -28,15 +28,10 @@ While the WVD solution allows for multiple desktop and application offerings, th
 ### Standard WVD Deployment
 For organizations looking to leverage WVD and allow users from the Internet to connect directly to desktops or applications, the high-level network architecture shown below is commonly deployed.
 
-
 <p align="center">
   <img width="634" height="506" src="https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure2.PNG">
   Figure 2: Internet Users Topology
 </p>
-
-![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure2.PNG)
-
-
 
 In this model, external users will connect to the WVD gateway service which is accessible via the Internet.  Azure Active Directory (AD) can be used to control access to the appropriate desktops and applications.  Prior to any users connecting, the desktops in the backend pools proactively create an outbound connection to the Broker service.  The Broker service and the Gateway service are part of the Microsoft managed PaaS services which work together to orchestrate a desktop/application session for users.  As a result, there is no direct access into the backend desktop/applications via the Internet.
 
