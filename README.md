@@ -18,7 +18,7 @@ There are a few deployment scenarios which can impact some of the architecture o
 
 The following architectures leverage the second option in which a domain controller is instantiated in Azure and Azure AD Connect was installed to sync identities to Azure AD.
 
-***The applications being presented (independently or through desktops) via WVD may also impact the network requirements – specifically around network routing and ACLs.  These requirements may have additional impacts on traffic flow and visibility.***
+***NOTE: The applications being presented (independently or through desktops) via WVD may also impact the network requirements – specifically around network routing and ACLs.  These requirements may have additional impacts on traffic flow and visibility.***
 
 ## WVD Network Architecture Options
 While the WVD solution allows for multiple desktop and application offerings, this document will focus solely on the network architecture and the topologies for how this solution can be designed.  This document will outline two different architectures: the first will describe a standard deployment in which WVD is deployed and users access desktops directly over the Internet, while the second will describe a high security deployment where access to desktops is privatized and all traffic is whitelisted and locked down for security auditing.
@@ -37,12 +37,11 @@ As a user attempts to connect to a desktop or remote application, the service en
 ### Advantages & Disadvantages  
 With any architecture there are advantages and disadvantages to the approach taken and it is important to understand how these affect your overall environment and service offering.  For this approach some of the these include:
 
-**Advantages	Disadvantages**
-•	Ease of configuration
-•	Protection for backend hosts
-•	Application level security for access	•	Gateway accessible by malicious users
-•	No visibility for outbound traffic
-•	Open route tables on desktops
+| Advantages | Disadvantages |
+| --- | --- |
+| Ease of configuration | Gateway accessible by malicious users |
+| Protection for backend hosts | No visibility for outbound traffic |
+| Application level security for access | Open route tables on desktops |
 
 ### High-Security WVD Deployment
 There are some organizations who have very strict security requirements and demand that all front-end access be private, like the on-prem user consumption previously detailed, as well as tightly lock down the back-end resources for least privilege access.  In these scenarios all outbound communication must be tightly controlled via ACLs and any and all communication logged for visibility.  These scenarios require all WVD dependencies to be clearly defined and whitelisted.  A topology supporting this architecture is shown below.
@@ -86,7 +85,7 @@ There are 2 main FQDNs for the front-end access to WVD.  These services can be d
 
 When private link is deployed for the broker service, the URL https://rdbroker.wvd.microsoft.com is created and an A record within Azure DNS will be created to redirect desktops automatically to this private IP.
 
-***When using Azure Firewall rule processing order is important.  Application rulesets are applied last so if Network rulesets are defined that match specified traffic, a corresponding application ruleset will never be hit.  This is important to remember in use cases where desktops require Internet access as an Any 443 rule would supersede the FQDNs defined above.  If Internet access is required for desktops, consider using a proxy service to prevent Any rules in the Azure Network rulesets.***
+***NOTE: When using Azure Firewall rule processing order is important.  Application rulesets are applied last so if Network rulesets are defined that match specified traffic, a corresponding application ruleset will never be hit.  This is important to remember in use cases where desktops require Internet access as an Any 443 rule would supersede the FQDNs defined above.  If Internet access is required for desktops, consider using a proxy service to prevent Any rules in the Azure Network rulesets.***
 
 **Controlling Accessibility**
 The methods above have created a private path into the WVD environment, however accessibility from the Internet is still available.  The front-end access for WVD (i.e. the broker and web services) are a shared platform with a shared DNS name across customers.  Access is controlled via Active Directory as we have previously explained however we are not able to block Internet access to this front-end as this would impact all customers using the service.  In order for customers to ensure that their environment is only accessible over private connectivity, we must leverage Azure Active Directory Conditional Access to limit the source of our requests to on-prem IP Addresses. https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/
@@ -101,8 +100,10 @@ Once we limit access to the WVD environment to only the Trusted locations define
 ### Advantages & Disadvantages  
 With any architecture there are advantages and disadvantages to the approach taken and it is important to understand how these affect your overall environment and service offering.  For this approach some of the these include:
 
-**Advantages	Disadvantages**
-•	Private front-end access by users
-•	Prevent public access to resources
-•	Visibility for all outbound traffic	•	Most complex setup
+| Advantages| Disadvantages |
+| --- | --- |
+| Private front-end access by users | Most complex setup |
+| Prevent public access to resources | |
+| Visibility for all outbound traffic | |
+
 
