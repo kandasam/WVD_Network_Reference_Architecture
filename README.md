@@ -18,7 +18,7 @@ There are a few deployment scenarios which can impact some of the architecture o
 
 The following architectures leverage the second option in which a domain controller is instantiated in Azure and Azure AD Connect was installed to sync identities to Azure AD.
 
-***NOTE: The applications being presented (independently or through desktops) via WVD may also impact the network requirements – specifically around network routing and ACLs.  These requirements may have additional impacts on traffic flow and visibility.***
+> ***NOTE: The applications being presented (independently or through desktops) via WVD may also impact the network requirements – specifically around network routing and ACLs.  These requirements may have additional impacts on traffic flow and visibility.***
 
 ## WVD Network Architecture Options
 While the WVD solution allows for multiple desktop and application offerings, this document will focus solely on the network architecture and the topologies for how this solution can be designed.  This document will outline two different architectures: the first will describe a standard deployment in which WVD is deployed and users access desktops directly over the Internet, while the second will describe a high security deployment where access to desktops is privatized and all traffic is whitelisted and locked down for security auditing.
