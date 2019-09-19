@@ -31,6 +31,7 @@ While the WVD solution allows for multiple desktop and application offerings, th
 For organizations looking to leverage WVD and allow users from the Internet to connect directly to desktops or applications, the high-level network architecture shown below is commonly deployed.
 
 ![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure2.PNG)
+
 Figure 2: Internet Users Topology
 
 In this model, external users will connect to the WVD gateway service which is accessible via the Internet.  Azure Active Directory (AD) can be used to control access to the appropriate desktops and applications.  Prior to any users connecting, the desktops in the backend pools proactively create an outbound connection to the Broker service.  The Broker service and the Gateway service are part of the Microsoft managed PaaS services which work together to orchestrate a desktop/application session for users.  As a result, there is no direct access into the backend desktop/applications via the Internet.
@@ -51,6 +52,7 @@ With any architecture there are advantages and disadvantages to the approach tak
 There are some organizations who have very strict security requirements and demand that all front-end access be private, like the on-prem user consumption previously detailed, as well as tightly lock down the back-end resources for least privilege access.  In these scenarios all outbound communication must be tightly controlled via ACLs and any and all communication logged for visibility.  These scenarios require all WVD dependencies to be clearly defined and whitelisted.  A topology supporting this architecture is shown below.
 
 ![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure3.PNG)
+
 Figure 4: High-Security WVD Topology
 
 This architecture builds upon the on-prem user consumption architecture as the front-end is fully privatized while also adding backend security to fully lock down and inspect all traffic destined to WVD dependencies.  These dependencies are locked down via defined UDRs and Routes, service endpoints, as well as Azure Firewall (or NVA) and NSG logs for inspection.  It is important to note that these dependencies only represent the WVD solution.  Depending upon the applications being served to users through these desktops, additional dependencies may need to be accounted for.
@@ -64,6 +66,7 @@ This architecture builds upon the on-prem user consumption architecture as the f
 - (OPTIONAL) Azure Key Vault – Key Vault may be used for credential management.  If this is used this can be handled via private link as well.
 
 ![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure4.PNG)
+
 Figure 5: Azure Firewall Rules
 
 **Routing**
