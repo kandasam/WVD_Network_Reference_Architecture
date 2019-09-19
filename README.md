@@ -30,6 +30,7 @@ For organizations looking to leverage WVD and allow users from the Internet to c
 
 <p align="center">
   <img width="634" height="506" src="https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure2.PNG">
+  
   Figure 2: Internet Users Topology
 </p>
 
