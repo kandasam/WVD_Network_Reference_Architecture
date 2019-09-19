@@ -34,7 +34,7 @@ In this model, external users will connect to the WVD gateway service which is a
 
 As a user attempts to connect to a desktop or remote application, the service ensures the user is authenticated to Azure AD, and the connection is established with the Gateway.  The gateway service notifies the broker service of the incoming request and indicates an active connection to the user exists.  The broker service determines the appropriate session host for the user, then instructs the appropriate backend resource to reach out to the gateway which has the active user connection.  Once that connection is complete the gateway server can facilitate the connection between the user and the backend desktop.
 
-### Advantages & Disadvantages  
+**Advantages & Disadvantages**  
 With any architecture there are advantages and disadvantages to the approach taken and it is important to understand how these affect your overall environment and service offering.  For this approach some of the these include:
 
 | Advantages | Disadvantages |
@@ -85,7 +85,7 @@ There are 2 main FQDNs for the front-end access to WVD.  These services can be d
 
 When private link is deployed for the broker service, the URL https://rdbroker.wvd.microsoft.com is created and an A record within Azure DNS will be created to redirect desktops automatically to this private IP.
 
-***NOTE: When using Azure Firewall rule processing order is important.  Application rulesets are applied last so if Network rulesets are defined that match specified traffic, a corresponding application ruleset will never be hit.  This is important to remember in use cases where desktops require Internet access as an Any 443 rule would supersede the FQDNs defined above.  If Internet access is required for desktops, consider using a proxy service to prevent Any rules in the Azure Network rulesets.***
+> ***NOTE: When using Azure Firewall rule processing order is important.  Application rulesets are applied last so if Network rulesets are defined that match specified traffic, a corresponding application ruleset will never be hit.  This is important to remember in use cases where desktops require Internet access as an Any 443 rule would supersede the FQDNs defined above.  If Internet access is required for desktops, consider using a proxy service to prevent Any rules in the Azure Network rulesets.***
 
 **Controlling Accessibility**
 The methods above have created a private path into the WVD environment, however accessibility from the Internet is still available.  The front-end access for WVD (i.e. the broker and web services) are a shared platform with a shared DNS name across customers.  Access is controlled via Active Directory as we have previously explained however we are not able to block Internet access to this front-end as this would impact all customers using the service.  In order for customers to ensure that their environment is only accessible over private connectivity, we must leverage Azure Active Directory Conditional Access to limit the source of our requests to on-prem IP Addresses. https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/
@@ -97,7 +97,7 @@ Using Conditional Access, we are able to define these Trusted IPs which represen
 
 Once we limit access to the WVD environment to only the Trusted locations defined for the Enterprise network, the WVD environment will not be accessible by users coming from the Internet.  Desktops and Applications will only be accessible by those users on the corporate network with approved Active Directory permissions.
 
-### Advantages & Disadvantages  
+**Advantages & Disadvantages**  
 With any architecture there are advantages and disadvantages to the approach taken and it is important to understand how these affect your overall environment and service offering.  For this approach some of the these include:
 
 | Advantages| Disadvantages |
