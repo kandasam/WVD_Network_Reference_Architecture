@@ -63,7 +63,7 @@ This architecture builds upon the on-prem user consumption architecture as the f
 - Azure AD – For the backend desktops to reach out Azure AD, Azure Firewall can be leveraged and the default rule-sets will allow this traffic outbound as long as no explicit default deny rule is applied.  The Azure firewall is a default deny rule so once these default rules are applied traffic will be dropped by default.  These can also be defined manually in Azure Firewall or an NVA. https://docs.microsoft.com/en-us/azure/firewall/infrastructure-fqdns
 - (OPTIONAL) Azure Key Vault – Key Vault may be used for credential management.  If this is used this can be handled via private link as well.
 
-![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure4.PNG) 
+![alt text](https://github.com/microsoft/WVD_Network_Reference_Architecture/blob/master/images/Figure4.PNG)
 Figure 5: Azure Firewall Rules
 
 **Routing**
