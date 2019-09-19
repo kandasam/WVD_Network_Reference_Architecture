@@ -11,6 +11,7 @@ Figure 1: Windows Virtual Desktop Components
 There are a few deployment scenarios which can impact some of the architecture options of the network connectivity.  The most impactful consideration is how Active Directory is integrated into the environment.  An Active Directory instance is required to which your backend desktops are able to join.  The options for this are as follows:
 
 | Option | Pros | Cons |
+| --- | --- | --- |
 | Use Azure AD DS. | Great for test or isolated environments that do not need connectivity to on-premises resources. 
 Azure AD will be your leading source for identities. | AD DS will always be running, resulting in a fixed charge per month.|
 | Spin up a DC in your Azure subscription. | Can sync with on-premises DCs if VPN or ExpressRoute is configured. 
